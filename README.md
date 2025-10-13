@@ -86,6 +86,33 @@ With the following software and hardware list you can run all code files present
 | ------------------------------------ | ----------------------------------- |
 | RStudio Desktop | Windows, macOS, or Linux |
 | R | Windows, macOS, or Linux |
+## Errata 
+<ul>
+  <li>Page 89:
+    <p style="font-weight: bold;">
+     The causal assumption here is that both the parent's income (X) and the child's academic performance (Y) influence the amount spent on toys (Z), but there's no direct causal link between the parent's income and the child's academic performance.
+    </p>
+    <p style="font-weight: bold;"><em>Should be</em></p>
+    <p style="font-weight: bold;">
+      The causal assumption here is that parent's income (X) influences the child's academic performance (Y), which in turn influences the amount spent on toys (Z). There is no direct causal link from parent's income to toy spending.
+    </p>
+  </li>
+
+  <li>Page 89:
+    <ul>
+      <li>Parent's income (X): Affects the amount spent on toys.</li>
+      <li>Child's academic performance (Y): Higher academic performance might lead to parents buying more toys as rewards.</li>
+      <li>Amount spent on toys (Z): Influenced by both X and Y.</li>
+    </ul>
+    <p><em>Should be</em></p>
+    <ul>
+      <li>Parent's income (X): Affects the child's academic performance.</li>
+      <li>Child's academic performance (Y): Higher academic performance leads parents to buy more toys as rewards, which in turn affects spending.</li>
+      <li>Amount spent on toys (Z): Influenced by Y, with X having only an indirect effect through Y.</li>
+    </ul>
+  </li>
+</ul>
+
 
 ## Related products
 * Causal Inference and Discovery in Python [[Packt]](https://www.packtpub.com/en-us/product/causal-inference-and-discovery-in-python-9781804612989) [[Amazon]](https://www.amazon.com/Causal-Inference-Discovery-Python-learning/dp/1804612987/ref=sr_1_1?dib=eyJ2IjoiMSJ9.hmJkw8cQ7kQ6PiMZrmVjzRxUSWv9JcaReDvHR_rsbvk-MXT8gDTn3Bu9JNng2BfDuccnxlONdy6zUlHUC9s09QCauym_Gmp51nbPqm2yg6z0CUGvWT5FmHwNYrz0cDMJ.zMcQO-xBgh13mlw1Go5mO0akEqG8mX2Po4uZP-jZ6z4&dib_tag=se&keywords=Causal+Inference+and+Discovery+in+Python&qid=1730359063&sr=8-1)
