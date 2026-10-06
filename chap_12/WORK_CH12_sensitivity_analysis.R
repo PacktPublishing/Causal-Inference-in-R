@@ -39,7 +39,10 @@ calculate_evalue <- function(estimate) {
 
 # Calculate E-values
 evalue_point <- calculate_evalue(or)
-evalue_lower <- calculate_evalue(ci[1])
+# The E-value of the interval uses the limit closer to the null, and is 1
+# when the interval contains 1: no confounding is needed to explain it away
+ci_limit <- if (or >= 1) ci[1] else ci[2]
+evalue_lower <- if (ci[1] <= 1 && ci[2] >= 1) 1 else calculate_evalue(ci_limit)
 
 # Print E-values
 cat("E-value (point estimate):", evalue_point, "\n")
