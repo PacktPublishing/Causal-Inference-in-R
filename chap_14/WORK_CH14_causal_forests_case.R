@@ -68,9 +68,11 @@ print(paste("Conditional Average Treatment Effect (CATE) RMSE:", cate_rmse))
 
 # Construct confidence intervals and evaluate coverage
 alpha <- 0.05
-ci <- predict(causal_forest_train, newdata = X[est_indices, ], alpha = alpha)
-ci_low <- ci$predictions - ci$variance.estimates
-ci_high <- ci$predictions + ci$variance.estimates
+ci <- predict(causal_forest_train, newdata = X[est_indices, ], estimate.variance = TRUE)
+z <- qnorm(1 - alpha / 2)
+se <- sqrt(ci$variance.estimates)
+ci_low <- ci$predictions - z * se
+ci_high <- ci$predictions + z * se
 coverage <- mean((true_cate >= ci_low) & (true_cate <= ci_high))
 print(paste("Coverage of", (1 - alpha) * 100, "% confidence intervals:", coverage))
 
