@@ -43,9 +43,12 @@ weights <- ifelse(data$packaging == 1, 1 / data$propensity_score, 1 / (1 - data$
 predicted_sales_treated <- predict(outcome_model, newdata = transform(data, packaging = 1))
 predicted_sales_control <- predict(outcome_model, newdata = transform(data, packaging = 0))
 
-# DR Estimation
-dr_estimate <- mean(weights * (data$packaging * data$sales + (1 - data$packaging) * predicted_sales_treated -
-                                 data$packaging * predicted_sales_control - (1 - data$packaging) * data$sales))
+# DR Estimation (augmented IPW): the outcome-model contrast, plus the
+# weighted residuals of each arm
+residual_treated <- data$packaging * (data$sales - predicted_sales_treated)
+residual_control <- (1 - data$packaging) * (data$sales - predicted_sales_control)
+dr_estimate <- mean(predicted_sales_treated - predicted_sales_control +
+                      weights * (residual_treated - residual_control))
 
 print(paste("Doubly Robust Estimate:", dr_estimate))
 
